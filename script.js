@@ -64,11 +64,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             displayRecentStations();
 
-            const response = await fetch(`https://7w36rckwf2qzdlzvfkmv52swnh5edl3edosr7l6hi7aru5nmnp2a.ssh.surf/estaciones/${stationInfo.id}/horarios`);
+            // URL exacta del request para pedir los horarios
+            const horariosUrl = `https://7w36rckwf2qzdlzvfkmv52swnh5edl3edosr7l6hi7aru5nmnp2a.ssh.surf/estaciones/${stationInfo.id}/horarios`;
+            console.log("URL del request para horarios:", horariosUrl); // Paso 1: Loguear la URL
+
+            const response = await fetch(horariosUrl);
             if (!response.ok) {
                 throw new Error('macana');
             }
             const data = await response.json();
+
+            console.log("Horarios obtenidos (JSON):", data); // Paso 2: Loguear los horarios en JSON
 
             if (data.results.length === 0) {
                 loadingMessageDiv.style.display = 'none';
